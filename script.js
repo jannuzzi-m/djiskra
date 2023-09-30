@@ -86,7 +86,7 @@ const addEdge = () => {
     ctx.stroke(edge);
 
     edgeStart[edgeEnd.label] = edge;
-    
+    edgeEnd[edgeStart.label] = edge;
 
     var midX=edgeStart.x+(edgeEnd.x-edgeStart.x)*0.50;
     var midY=edgeStart.y+(edgeEnd.y-edgeStart.y)*0.50;
@@ -102,6 +102,7 @@ const addEdge = () => {
         graph[edgeEnd.label] = {};
     }
     graph[edgeStart.label][edgeEnd.label] = parseInt(edgeWeigth);
+    graph[edgeEnd.label][edgeStart.label] = parseInt(edgeWeigth);
     edgeStart = edgeEnd = null;
 
     console.log(graph)
@@ -114,7 +115,6 @@ const findHoveredVertice = () => {
 
 const resolveAlgorithm = () => {
     const startPath = originVertice.label;
-    vertexFrom.innerHTML = `Origem: ${originVertice.label}`;
     const endPath = destinyVertice.label;
     vertexTo.innerHTML = `Destino: ${destinyVertice.label}`;
     console.log(findShortestPath(graph, startPath, endPath));
@@ -127,8 +127,8 @@ const selectVertice = () => {
     ctx.lineWidth = 10;
     ctx.strokeStyle = '#ff0000';
     if (originVertice ==  null) {
-        vertexFrom.innerHTML = nearest.label;
         originVertice = nearest;
+        vertexFrom.innerHTML = `Origem: ${originVertice.label}`;
         ctx.stroke(nearest.vertice);
         vertexSelectionMessage.innerHTML = 'Selecione o vertice de destino';
         return;
