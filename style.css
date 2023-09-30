@@ -12,6 +12,7 @@ html, body {
     display: flex;
     flex-direction: column;
     min-width: 150px;
+    justify-content: space-between;
 }
 #canvas {
     width: 99vw;
@@ -20,4 +21,13 @@ html, body {
 
 .menu-item {
     min-height: 75px;
+}
+
+.sub-menu {
+    display: flex;
+    flex-direction: column;
+}
+
+#vertice-selection-message {
+    max-width: 150px;
 }
