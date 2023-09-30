@@ -1,0 +1,23 @@
+html, body {
+    padding: 0;
+    margin: 0;
+    background-color: aliceblue;
+}
+
+#container {
+    display: flex;
+}
+#menu {
+    background-color: antiquewhite;
+    display: flex;
+    flex-direction: column;
+    min-width: 150px;
+}
+#canvas {
+    width: 99vw;
+    height: 99vh;
+}
+
+.menu-item {
+    min-height: 75px;
+}
