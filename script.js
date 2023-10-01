@@ -127,8 +127,22 @@ const addEdge = () => {
     if(!graph.hasOwnProperty(edgeEnd.label)){
         graph[edgeEnd.label] = {};
     }
-    graph[edgeStart.label][edgeEnd.label] = parseInt(edgeWeigth);
-    graph[edgeEnd.label][edgeStart.label] = parseInt(edgeWeigth);
+    if (!graph[edgeStart.label].hasOwnProperty(edgeEnd.label)) {
+        graph[edgeStart.label][edgeEnd.label] = parseInt(edgeWeigth)
+    }
+    if (!graph[edgeEnd.label].hasOwnProperty(edgeStart.label)) {
+        graph[edgeEnd.label][edgeStart.label] = parseInt(edgeWeigth);
+    }
+    if (graph[edgeStart.label].hasOwnProperty(edgeEnd.label)) {
+        if(graph[edgeStart.label][edgeEnd.label] < parseInt(edgeWeigth)) {
+            graph[edgeStart.label][edgeEnd.label] = parseInt(edgeWeigth)
+        }
+    }
+    if(graph[edgeEnd.label][edgeStart.label]){
+        if (graph[edgeEnd.label][edgeStart.label] < parseInt(edgeWeigth)) {
+            graph[edgeEnd.label][edgeStart.label] = parseInt(edgeWeigth);
+        }
+    }
     edgeStart = edgeEnd = null;
 
     console.log(graph)
