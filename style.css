@@ -2,6 +2,7 @@ html, body {
     padding: 0;
     margin: 0;
     background-color: aliceblue;
+    color: #fffaff;
 }
 
 #container {
@@ -9,20 +10,30 @@ html, body {
     height: 100vh;
 }
 #menu {
-    background-color: antiquewhite;
+    background-color: #a5b452;
     display: flex;
     flex-direction: column;
     min-width: 150px;
     justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 10px;
 }
 
 .menu-item {
     min-height: 75px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    background-color: #003a44;
+    color: #fffaff;
+    border: none;
 }
 
 .sub-menu {
     display: flex;
     flex-direction: column;
+    width: 90%;
+    height: 33%;
 }
 
 #vertice-selection-message {
@@ -35,4 +46,31 @@ html, body {
 
 canvas {
     position: absolute;
+}
+
+#drawn-menu {
+    justify-content: start;
+}
+
+.info {
+    justify-content: center;
+    border: 1px solid #fffaff;
+    padding: 10px;
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+}
+
+.selected-button {
+    background-color: #227877;
+}
+
+#resolve-button {
+    justify-content: center;
+}
+
+#edgeWeight {
+    height: 30px;
 }

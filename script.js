@@ -2,9 +2,12 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const canvas2 = document.getElementById("canvas2");
 const ctx2 = canvas2.getContext("2d");
+
+ctx2.fillStyle = "#fffaff";
+ctx2.fillRect(0, 0, canvas2.width, canvas2.height);
+
 const verticeButton = document.getElementById('vertice-button');
 const edgeButton = document.getElementById('edge-button');
-const undoButton = document.getElementById('undo');
 const edgeWeightForm = document.getElementById('edgeWeight');
 const findShortestPathButton = document.getElementById('find-shortest-path');
 
@@ -52,8 +55,9 @@ const addVertice = e => {
 
     const vertice = new Path2D();
     vertice.arc(x, y, verticeRadio, 0, 2 * Math.PI);
-    ctx.fillStyle = 'blue'
+    ctx.fillStyle = '#fffaff'
     ctx.fill(vertice);
+    ctx.strokeStyle = '#003a44'
     ctx.stroke(vertice);
     
 
@@ -73,7 +77,7 @@ let clickFunction = addVertice;
 
 const addEdge = () => {
     const nearest = findHoveredVertice();
-    ctx.lineWidth = 10;
+    ctx.lineWidth = 5;
     if (nearest == null) return;
     ctx.stroke(nearest.vertice)
 
@@ -99,7 +103,7 @@ const addEdge = () => {
     const midY=edgeStart.y+(edgeEnd.y-edgeStart.y)*0.50;
     const edgeWeigth = edgeWeightForm.value;
     
-    ctx2.fillText(edgeWeightForm.value, midX, midY + 25);
+    ctx.fillText(edgeWeightForm.value, midX, midY + 25);
     verticeName++;
 
     if(!graph.hasOwnProperty(edgeStart.label)){
@@ -132,7 +136,7 @@ const resolveAlgorithm = () => {
 const selectVertice = () => {
     const nearest = findHoveredVertice();
     ctx.lineWidth = 10;
-    ctx.strokeStyle = '#ff0000';
+    ctx.strokeStyle = '#227877';
     if (originVertice ==  null) {
         originVertice = nearest;
         vertexFrom.innerHTML = `Origem: ${originVertice.label}`;
@@ -143,20 +147,28 @@ const selectVertice = () => {
     if (destinyVertice ==  null) {
         vertexTo.innerHTML = nearest.label;
         destinyVertice = nearest;
-        ctx.stroke(nearest.vertice);
         isSelectingVertices = false;
         resolveAlgorithm();
-        vertexSelectionMessage.innerHTML = '';
     }
 
 }
 
 canvas.addEventListener("click", handleCLick);
-verticeButton.addEventListener('click', () => clickFunction = addVertice);
-edgeButton.addEventListener('click', () => clickFunction = addEdge);
-undoButton.addEventListener('click', () => ctx.restore());
+verticeButton.addEventListener('click', () => {
+    clickFunction = addVertice;
+    verticeButton.classList.add('selected-button');
+    edgeButton.classList.remove('selected-button');
+});
+edgeButton.addEventListener('click', () => {
+    clickFunction = addEdge
+    edgeButton.classList.add('selected-button');
+    verticeButton.classList.remove('selected-button');
+});
 findShortestPathButton.addEventListener('click', () => {
     clickFunction = selectVertice;
+    findShortestPathButton.classList.add('selected-button');
+    edgeButton.classList.remove('selected-button')
+    verticeButton.classList.remove('selected-button')
     findShortestPathButton.disabled = true;
     vertexSelectionMessage.innerHTML = 'Selecione o vertice de origem';
 })
@@ -164,13 +176,21 @@ findShortestPathButton.addEventListener('click', () => {
 
 const visualFeedback = (resolution) => {
     cost.innerHTML = `Custo: ${resolution.distance}`;
-    ctx2.strokeStyle = '#ff0000';
+    ctx.strokeStyle = '#a5b452';
+    ctx.lineWidth = 10;
+
+    ctx2.strokeStyle = '#a5b452';
     ctx2.lineWidth = 10;
     resolution.path.forEach((node, index) => {
+        const currentVertice = vertices.filter(v => v.label == node)[0]
         if (resolution.path[index + 1]){
-            const currentVertice = vertices.filter(v => v.label == node)[0]
-            ctx.stroke(currentVertice.vertice)
+            
             ctx2.stroke(currentVertice[resolution.path[index + 1]])
         };
+    ctx.strokeStyle = '#a5b452';
+
+        ctx.stroke(currentVertice.vertice)
+
     })
+    
 }

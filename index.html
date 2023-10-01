@@ -9,29 +9,31 @@
 <body>
     <div id="container">
         <div id="menu">
-            <div class="sub-menu">
+            <div id="drawn-menu" class="sub-menu">
                 <button class="menu-item" id="vertice-button">Vertice</button>
                 <button class="menu-item" id="edge-button">Aresta</button>
-                <button class="menu-item" id="undo">Desfazer</button>
-                <label for="edge">Peso</label>
-                <input name="edge" value="1" id="edgeWeight" type="number"/>
+                <div>
+
+                    <label for="edge">Peso</label>
+                    <input name="edge" value="1" id="edgeWeight" type="number"/>
+                </div>
             </div>
-            <div>
+            <div class="info">
+                <h1 id="vertice-selection-message">Crie o Grafo</h1>
+            </div>
+            <div class="info" class="sub-menu">
                 <h1 id="vertexFrom">Origem: ?</h1>
                 <h1 id="vertexTo">Destino: ?</h1>
                 <h1 id="cost">Custo: ?</h1>
             </div>
-            <div>
-                <h1 id="vertice-selection-message"></h1>
-            </div>
 
-            <div class="sub-menu">
+            <div id="resolve-button" class="sub-menu">
                 <button class="menu-item" id="find-shortest-path">Encontrar menor caminho</button>
             </div>
         </div>
         <div id="canvas-wrapper">
-            <canvas id="canvas2" width="1725" height="920"></canvas>
-            <canvas id="canvas" width="1725" height="920"></canvas>
+            <canvas id="canvas2" width="1705" height="920"></canvas>
+            <canvas id="canvas" width="1705" height="920"></canvas>
         </div>
     </div>
 
