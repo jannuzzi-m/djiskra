@@ -1,6 +1,21 @@
-const canvas = document.getElementById("canvas");
+
+const canvasWrapper = document.getElementById('canvas-wrapper');
+const canvasWrapperContainer = document.getElementById('canvas-wrapper-container');
+
+const canvasWrapperWidht = canvasWrapperContainer.clientWidth;
+const canvasWrapperHeight = canvasWrapperContainer.clientHeight;
+
+const canvas2 = document.createElement('canvas');
+canvas2.width = canvasWrapperWidht;
+canvas2.height = canvasWrapperHeight;
+canvasWrapper.appendChild(canvas2)
+
+const canvas = document.createElement('canvas');
+canvas.width = canvasWrapperWidht;
+canvas.height = canvasWrapperHeight;
+canvasWrapper.appendChild(canvas)
+
 const ctx = canvas.getContext("2d");
-const canvas2 = document.getElementById("canvas2");
 const ctx2 = canvas2.getContext("2d");
 
 ctx2.fillStyle = "#fffaff";
