@@ -134,12 +134,12 @@ const addEdge = () => {
         graph[edgeEnd.label][edgeStart.label] = parseInt(edgeWeigth);
     }
     if (graph[edgeStart.label].hasOwnProperty(edgeEnd.label)) {
-        if(graph[edgeStart.label][edgeEnd.label] < parseInt(edgeWeigth)) {
+        if(graph[edgeStart.label][edgeEnd.label] > parseInt(edgeWeigth)) {
             graph[edgeStart.label][edgeEnd.label] = parseInt(edgeWeigth)
         }
     }
     if(graph[edgeEnd.label][edgeStart.label]){
-        if (graph[edgeEnd.label][edgeStart.label] < parseInt(edgeWeigth)) {
+        if (graph[edgeEnd.label][edgeStart.label] > parseInt(edgeWeigth)) {
             graph[edgeEnd.label][edgeStart.label] = parseInt(edgeWeigth);
         }
     }
