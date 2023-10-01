@@ -199,12 +199,15 @@ findShortestPathButton.addEventListener('click', () => {
     edgeButton.classList.remove('selected-button')
     verticeButton.classList.remove('selected-button')
     findShortestPathButton.disabled = true;
+    edgeButton.disabled = true;
+    verticeButton.disabled = true;
     vertexSelectionMessage.innerHTML = 'Selecione o vertice de origem';
 })
 
 
 const visualFeedback = (resolution) => {
     cost.innerHTML = `Custo: ${resolution.distance}`;
+    vertexSelectionMessage.innerHTML = '👍';
     ctx.strokeStyle = '#a5b452';
     ctx.lineWidth = 10;
 
