@@ -1,5 +1,7 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+const canvas2 = document.getElementById("canvas2");
+const ctx2 = canvas2.getContext("2d");
 const verticeButton = document.getElementById('vertice-button');
 const edgeButton = document.getElementById('edge-button');
 const undoButton = document.getElementById('undo');
@@ -32,9 +34,9 @@ const graph = {};
 
 
 canvas.addEventListener("mousemove", function(evt) { 
-    var rect = canvas.getBoundingClientRect(),
-    scaleX = canvas.width / rect.width,
-    scaleY = canvas.height / rect.height
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
 
 
     x = (evt.clientX - rect.left) * scaleX,
@@ -50,12 +52,17 @@ const addVertice = e => {
 
     const vertice = new Path2D();
     vertice.arc(x, y, verticeRadio, 0, 2 * Math.PI);
+    ctx.fillStyle = 'blue'
+    ctx.fill(vertice);
     ctx.stroke(vertice);
+    
 
     ctx.textAlign = "center";
     ctx.textBaseline = 'middle'; 
     ctx.font = "30px Arial";
+    ctx2.font = "30px Arial";
     const label = String.fromCharCode(verticeName);
+    ctx.fillStyle = 'black'
     ctx.fillText(String.fromCharCode(verticeName), x, y);
     verticeName++;
 
@@ -80,19 +87,19 @@ const addEdge = () => {
     ctx.lineWidth = 1;
 
     const edge = new Path2D();
-    ctx.beginPath();
+    ctx2.beginPath();
     edge.moveTo(edgeStart.x, edgeStart.y);
     edge.lineTo(edgeEnd.x, edgeEnd.y);
-    ctx.stroke(edge);
+    ctx2.stroke(edge);
 
     edgeStart[edgeEnd.label] = edge;
     edgeEnd[edgeStart.label] = edge;
 
-    var midX=edgeStart.x+(edgeEnd.x-edgeStart.x)*0.50;
-    var midY=edgeStart.y+(edgeEnd.y-edgeStart.y)*0.50;
+    const midX=edgeStart.x+(edgeEnd.x-edgeStart.x)*0.50;
+    const midY=edgeStart.y+(edgeEnd.y-edgeStart.y)*0.50;
     const edgeWeigth = edgeWeightForm.value;
     
-    ctx.fillText(edgeWeightForm.value, midX, midY + 25);
+    ctx2.fillText(edgeWeightForm.value, midX, midY + 25);
     verticeName++;
 
     if(!graph.hasOwnProperty(edgeStart.label)){
@@ -157,17 +164,13 @@ findShortestPathButton.addEventListener('click', () => {
 
 const visualFeedback = (resolution) => {
     cost.innerHTML = `Custo: ${resolution.distance}`;
-    ctx.strokeStyle = '#ff0000';
-    ctx.lineWidth = 10;
+    ctx2.strokeStyle = '#ff0000';
+    ctx2.lineWidth = 10;
     resolution.path.forEach((node, index) => {
         if (resolution.path[index + 1]){
             const currentVertice = vertices.filter(v => v.label == node)[0]
-            ctx.stroke(currentVertice[resolution.path[index + 1]])
+            ctx.stroke(currentVertice.vertice)
+            ctx2.stroke(currentVertice[resolution.path[index + 1]])
         };
     })
 }
-
-const edge = new Path2D();
-edge.rect(10, 10, 100, 100);
-
-ctx.stroke()

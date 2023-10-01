@@ -6,6 +6,7 @@ html, body {
 
 #container {
     display: flex;
+    height: 100vh;
 }
 #menu {
     background-color: antiquewhite;
@@ -13,10 +14,6 @@ html, body {
     flex-direction: column;
     min-width: 150px;
     justify-content: space-between;
-}
-#canvas {
-    width: 99vw;
-    height: 99vh;
 }
 
 .menu-item {
@@ -30,4 +27,12 @@ html, body {
 
 #vertice-selection-message {
     max-width: 150px;
+}
+
+.canvas-wrapper {
+    position: relative;
+}
+
+canvas {
+    position: absolute;
 }
