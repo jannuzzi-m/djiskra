@@ -21,8 +21,6 @@ const ctx2 = canvas2.getContext("2d");
 ctx2.fillStyle = "#fffaff";
 ctx2.fillRect(0, 0, canvas2.width, canvas2.height);
 
-const verticeButton = document.getElementById('vertice-button');
-const edgeButton = document.getElementById('edge-button');
 const edgeWeightForm = document.getElementById('edgeWeight');
 const findShortestPathButton = document.getElementById('find-shortest-path');
 
@@ -62,8 +60,23 @@ canvas.addEventListener("mousemove", function(evt) {
 });
 
 
+const findHoveredVertice = () => {
+    const nearest = vertices.filter(v => ctx.isPointInPath(v.vertice, x, y));
+    return nearest[0];
+};
+
 const handleCLick = () => {
-    clickFunction()
+    const hoverVertice = findHoveredVertice();
+    if (isSelectingVertices) {
+        selectVertice();
+        return;
+    }
+    if (hoverVertice) {
+        addEdge();
+    }
+    else {
+        addVertice()
+    }
 }
 
 const addVertice = e => {
@@ -94,6 +107,7 @@ const addEdge = () => {
     const nearest = findHoveredVertice();
     ctx.lineWidth = 5;
     if (nearest == null) return;
+    ctx.strokeStyle ='#227877'
     ctx.stroke(nearest.vertice)
 
     if (edgeStart ==  null) {
@@ -110,6 +124,12 @@ const addEdge = () => {
     edge.moveTo(edgeStart.x, edgeStart.y);
     edge.lineTo(edgeEnd.x, edgeEnd.y);
     ctx2.stroke(edge);
+
+    ctx.lineWidth = 5;
+    ctx.strokeStyle ='#003a44';
+    ctx.stroke(edgeStart.vertice)
+    ctx.stroke(edgeEnd.vertice)
+
 
     edgeStart[edgeEnd.label] = edge;
     edgeEnd[edgeStart.label] = edge;
@@ -148,10 +168,6 @@ const addEdge = () => {
     console.log(graph)
 }
 
-const findHoveredVertice = () => {
-    const nearest = vertices.filter(v => ctx.isPointInPath(v.vertice, x, y));
-    return nearest[0];
-};
 
 const resolveAlgorithm = () => {
     const startPath = originVertice.label;
@@ -183,24 +199,11 @@ const selectVertice = () => {
 }
 
 canvas.addEventListener("click", handleCLick);
-verticeButton.addEventListener('click', () => {
-    clickFunction = addVertice;
-    verticeButton.classList.add('selected-button');
-    edgeButton.classList.remove('selected-button');
-});
-edgeButton.addEventListener('click', () => {
-    clickFunction = addEdge
-    edgeButton.classList.add('selected-button');
-    verticeButton.classList.remove('selected-button');
-});
 findShortestPathButton.addEventListener('click', () => {
+    isSelectingVertices= true;
     clickFunction = selectVertice;
     findShortestPathButton.classList.add('selected-button');
-    edgeButton.classList.remove('selected-button')
-    verticeButton.classList.remove('selected-button')
     findShortestPathButton.disabled = true;
-    edgeButton.disabled = true;
-    verticeButton.disabled = true;
     vertexSelectionMessage.innerHTML = 'Selecione o vertice de origem';
 })
 
