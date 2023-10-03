@@ -92,8 +92,9 @@ let clickFunction = addVertice;
 
 const addEdge = () => {
     const nearest = findHoveredVertice();
-    ctx.lineWidth = 5;
     if (nearest == null) return;
+    ctx.lineWidth = 5;
+    ctx.strokeStyle ='#227877'
     ctx.stroke(nearest.vertice)
 
     if (edgeStart ==  null) {
@@ -110,6 +111,12 @@ const addEdge = () => {
     edge.moveTo(edgeStart.x, edgeStart.y);
     edge.lineTo(edgeEnd.x, edgeEnd.y);
     ctx2.stroke(edge);
+
+    ctx.lineWidth = 5;
+    ctx.strokeStyle ='#003a44';
+    ctx.stroke(edgeStart.vertice)
+    ctx.stroke(edgeEnd.vertice)
+
 
     edgeStart[edgeEnd.label] = edge;
     edgeEnd[edgeStart.label] = edge;
@@ -164,6 +171,7 @@ const resolveAlgorithm = () => {
 
 const selectVertice = () => {
     const nearest = findHoveredVertice();
+    if (!nearest) return;
     ctx.lineWidth = 10;
     ctx.strokeStyle = '#227877';
     if (originVertice ==  null) {
