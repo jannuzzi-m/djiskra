@@ -232,3 +232,9 @@ edgeWeightForm.addEventListener('focusout', e => {
         e.target.value = 0;
     }
 })
+
+edgeWeightForm.addEventListener('focusout', e => {
+    if (e.target.value < 1 || isNaN(e.target.value)) {
+        e.target.value = 1;
+    }
+})
